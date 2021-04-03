@@ -4,8 +4,7 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import pl.makrohard.alfacommerce.R
@@ -14,19 +13,29 @@ import pl.makrohard.alfacommerce.databinding.ProductsFragmentBinding
 import pl.makrohard.alfacommerce.model.Product
 
 class ProductsFragment : Fragment() {
-    private lateinit var viewBinding: ProductsFragmentBinding
-
     companion object {
-        fun newInstance() = ProductsFragment()
+        private const val CATEGORY_ID = "category_id"
+
+        fun newInstance(id: Int): ProductsFragment {
+            val fragment = ProductsFragment()
+            val bundle = Bundle()
+            bundle.putInt(CATEGORY_ID, id)
+            fragment.arguments = bundle
+            return fragment
+        }
     }
 
-    private val viewModel: ProductsViewModel by activityViewModels()
+    private lateinit var viewBinding: ProductsFragmentBinding
+    private lateinit var viewModel: ProductsViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel.fetchProducts()
+        val category = arguments?.getInt(CATEGORY_ID) ?: -1
+        viewModel = ViewModelProvider(this).get(category.toString(), ProductsViewModel::class.java)
+        viewModel.filters.category = category
+        viewModel.fetchProducts(false)
         setHasOptionsMenu(true)
         viewBinding = ProductsFragmentBinding.inflate(inflater, container, false)
         return viewBinding.root

@@ -3,6 +3,7 @@ package pl.makrohard.alfacommerce.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import pl.makrohard.alfacommerce.R
+import pl.makrohard.alfacommerce.ui.main.CategoriesFragment
 import pl.makrohard.alfacommerce.ui.main.ProductsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_activity)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, ProductsFragment.newInstance())
+                .replace(R.id.container, CategoriesFragment.newInstance())
                 .commitNow()
         }
     }
