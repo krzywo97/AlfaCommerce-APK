@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AlfaCommerce</string>
+    <string name="filters">Filters</string>
+    <string name="product_image">Product image</string>
 </resources>

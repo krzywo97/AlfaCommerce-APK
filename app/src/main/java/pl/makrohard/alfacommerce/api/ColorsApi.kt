@@ -2,9 +2,7 @@ package pl.makrohard.alfacommerce.api
 
 import pl.makrohard.alfacommerce.model.Color
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface ColorsApi {
     @GET("colors")
@@ -15,6 +13,10 @@ interface ColorsApi {
 
     @POST("colors")
     fun store(color: Color): Call<Void>
+
+    @PUT("colors")
     fun edit(color: Color): Call<Void>
-    fun delete(id: Int): Call<Void>
+
+    @DELETE("colors/{id}")
+    fun delete(@Path("id") id: Int): Call<Void>
 }
