@@ -5,11 +5,13 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.adapter.ProductsAdapter
 import pl.makrohard.alfacommerce.databinding.ProductsFragmentBinding
+import pl.makrohard.alfacommerce.model.Product
 
 class ProductsFragment : Fragment() {
     private lateinit var viewBinding: ProductsFragmentBinding
@@ -46,7 +48,10 @@ class ProductsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val adapter = ProductsAdapter(viewModel.getProducts().value?.products ?: emptyList())
+        val adapter = ProductsAdapter(
+            viewModel.getProducts().value?.products ?: emptyList(),
+            this::onProductClick
+        )
         val layoutManager = StaggeredGridLayoutManager(
             resources.getInteger(R.integer.products_column_count),
             RecyclerView.VERTICAL
@@ -58,5 +63,9 @@ class ProductsFragment : Fragment() {
             adapter.products = it?.products ?: emptyList()
             adapter.notifyDataSetChanged()
         })
+    }
+
+    private fun onProductClick(product: Product) {
+        Toast.makeText(requireContext(), "Klik ${product.name}", Toast.LENGTH_SHORT).show()
     }
 }

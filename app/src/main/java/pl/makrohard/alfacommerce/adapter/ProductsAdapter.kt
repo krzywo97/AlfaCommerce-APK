@@ -4,16 +4,30 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.databinding.ProductTileBinding
 import pl.makrohard.alfacommerce.model.Product
 
-class ProductsAdapter(var products: List<Product>) :
+class ProductsAdapter(
+    var products: List<Product>,
+    private val onClickListener: (product: Product) -> Unit
+) :
     RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
-    inner class ProductViewHolder(private val binding: ProductTileBinding) :
+    inner class ProductViewHolder(
+        private val binding: ProductTileBinding,
+        private val onClickListener: (product: Product) -> Unit
+    ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
+            binding.card.setOnClickListener {
+                onClickListener.invoke(product)
+            }
             if (product.photos.isNotEmpty()) {
-                Glide.with(binding.root).load(product.photos[0].url).into(binding.image)
+                Glide.with(binding.root)
+                    .load(product.photos[0].url)
+                    .placeholder(R.drawable.loading)
+                    .fallback(R.drawable.no_image)
+                    .into(binding.image)
             }
             binding.name.text = product.name
         }
@@ -21,7 +35,7 @@ class ProductsAdapter(var products: List<Product>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val binding = ProductTileBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ProductViewHolder(binding)
+        return ProductViewHolder(binding, onClickListener)
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
