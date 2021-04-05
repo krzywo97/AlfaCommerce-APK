@@ -36,23 +36,8 @@ class ProductsFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(category.toString(), ProductsViewModel::class.java)
         viewModel.filters.category = category
         viewModel.fetchProducts(false)
-        setHasOptionsMenu(true)
         viewBinding = ProductsFragmentBinding.inflate(inflater, container, false)
         return viewBinding.root
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.main_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.filters -> {
-                Toast.makeText(activity, "Filtry", Toast.LENGTH_SHORT).show()
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
