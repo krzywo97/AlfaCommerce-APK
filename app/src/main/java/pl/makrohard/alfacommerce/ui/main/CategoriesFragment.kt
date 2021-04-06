@@ -36,6 +36,7 @@ class CategoriesFragment : Fragment() {
             childFragmentManager,
             lifecycle
         )
+        viewBinding.pager.offscreenPageLimit = 2
         viewBinding.pager.adapter = adapter
         TabLayoutMediator(viewBinding.tabs, viewBinding.pager) { tab, position ->
             tab.text = viewModel.getCategories().value?.get(position)?.name ?: "?"
@@ -56,6 +57,7 @@ class CategoriesFragment : Fragment() {
         when (item.itemId) {
             R.id.filters -> {
                 Toast.makeText(activity, "Filtry", Toast.LENGTH_SHORT).show()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)
