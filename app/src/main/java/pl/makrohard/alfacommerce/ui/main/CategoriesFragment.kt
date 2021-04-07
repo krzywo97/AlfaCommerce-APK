@@ -1,12 +1,12 @@
 package pl.makrohard.alfacommerce.ui.main
 
 import android.os.Bundle
-import android.view.*
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
-import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.adapter.CategoriesAdapter
 import pl.makrohard.alfacommerce.databinding.CategoriesFragmentBinding
 
@@ -32,7 +32,7 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.filters.setOnClickListener {
-            FiltersDialogFragment.newInstance(5).show(parentFragmentManager, "showFilters")
+            FiltersDialogFragment.newInstance().show(parentFragmentManager, "showFilters")
         }
 
         val adapter = CategoriesAdapter(
@@ -52,20 +52,5 @@ class CategoriesFragment : Fragment() {
             adapter.categories = it
             adapter.notifyDataSetChanged()
         })
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.main_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.filters -> {
-                Toast.makeText(activity, "Filtry", Toast.LENGTH_SHORT).show()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }

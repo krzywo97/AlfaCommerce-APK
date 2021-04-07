@@ -9,4 +9,5 @@
     <string name="filters_apply">Apply filters</string>
     <string name="filters_min_weight">Min weight</string>
     <string name="filters_max_weight">Max weight</string>
+    <string name="filters_colors">Colors</string>
 </resources>
