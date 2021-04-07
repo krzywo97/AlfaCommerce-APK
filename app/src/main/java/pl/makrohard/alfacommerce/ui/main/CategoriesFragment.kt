@@ -31,13 +31,19 @@ class CategoriesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewBinding.filters.setOnClickListener {
+            FiltersDialogFragment.newInstance(5).show(parentFragmentManager, "showFilters")
+        }
+
         val adapter = CategoriesAdapter(
             viewModel.getCategories().value ?: emptyList(),
             childFragmentManager,
             lifecycle
         )
+
         viewBinding.pager.offscreenPageLimit = 2
         viewBinding.pager.adapter = adapter
+
         TabLayoutMediator(viewBinding.tabs, viewBinding.pager) { tab, position ->
             tab.text = viewModel.getCategories().value?.get(position)?.name ?: "?"
         }.attach()

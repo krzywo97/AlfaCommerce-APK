@@ -2,4 +2,11 @@
     <string name="app_name">AlfaCommerce</string>
     <string name="filters">Filters</string>
     <string name="product_image">Product image</string>
+    <string name="filters_product_name">Product name</string>
+    <string name="filters_dialog_title">Filtering options</string>
+    <string name="filters_min_price">Min price</string>
+    <string name="filters_max_price">Max price</string>
+    <string name="filters_apply">Apply filters</string>
+    <string name="filters_min_weight">Min weight</string>
+    <string name="filters_max_weight">Max weight</string>
 </resources>
