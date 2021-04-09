@@ -52,7 +52,6 @@
                     android:id="@+id/price_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:text="@string/product_details_price"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     app:layout_constraintEnd_toStartOf="@id/price"
