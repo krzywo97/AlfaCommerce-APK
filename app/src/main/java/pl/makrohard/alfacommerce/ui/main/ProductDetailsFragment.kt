@@ -51,6 +51,8 @@ class ProductDetailsFragment : Fragment() {
 
             viewBinding.name.text = it.name
             viewBinding.price.text = TextUtils.formatPrice(it.price)
+            viewBinding.color.text = it.color.name
+            viewBinding.weight.text = it.weight.toString()
         }
     }
 }

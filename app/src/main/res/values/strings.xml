@@ -16,4 +16,7 @@
     <string name="product_details_happy_customers">99.9% of customers would recommend us to their friends</string>
     <string name="product_details_quick_delivery">Quick delivery — on your doorstep tomorrow</string>
     <string name="product_details_free_returns">Free returns and replacements</string>
+    <string name="product_info">Product information</string>
+    <string name="product_details_color_label">Color</string>
+    <string name="product_details_weight_label">Weight [g]</string>
 </resources>
