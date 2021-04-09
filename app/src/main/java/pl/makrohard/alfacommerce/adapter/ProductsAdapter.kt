@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.databinding.ProductTileBinding
 import pl.makrohard.alfacommerce.model.Product
@@ -22,11 +23,14 @@ class ProductsAdapter(
             binding.card.setOnClickListener {
                 onClickListener.invoke(product)
             }
+
             if (product.photos.isNotEmpty()) {
                 Glide.with(binding.root)
                     .load(product.photos[0].url)
                     .placeholder(R.drawable.loading)
                     .fallback(R.drawable.no_image)
+                    .error(R.drawable.no_image)
+                    .transition(DrawableTransitionOptions.withCrossFade())
                     .into(binding.image)
             }
             binding.name.text = product.name

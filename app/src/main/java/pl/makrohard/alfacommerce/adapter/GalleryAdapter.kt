@@ -4,6 +4,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.databinding.GalleryItemBinding
 import pl.makrohard.alfacommerce.model.Photo
 
@@ -15,6 +17,10 @@ class GalleryAdapter(var photos: List<Photo>) :
         fun bind(photo: Photo) {
             Glide.with(viewBinding.image)
                 .load(photo.url)
+                .placeholder(R.drawable.loading)
+                .fallback(R.drawable.no_image)
+                .error(R.drawable.no_image)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(viewBinding.image)
         }
     }
