@@ -10,4 +10,10 @@
     <string name="filters_min_weight">Min weight</string>
     <string name="filters_max_weight">Max weight</string>
     <string name="filters_colors">Colors</string>
+    <string name="product_details_price">Price:</string>
+    <string name="why_us">Why us?</string>
+    <string name="product_details_buy">Buy now</string>
+    <string name="product_details_happy_customers">99.9% of customers would recommend us to their friends</string>
+    <string name="product_details_quick_delivery">Quick delivery — on your doorstep tomorrow</string>
+    <string name="product_details_free_returns">Free returns and replacements</string>
 </resources>

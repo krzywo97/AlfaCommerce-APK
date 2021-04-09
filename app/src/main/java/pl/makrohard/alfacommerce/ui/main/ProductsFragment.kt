@@ -4,8 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation
+import androidx.navigation.Navigator
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import pl.makrohard.alfacommerce.R
@@ -61,6 +65,11 @@ class ProductsFragment : Fragment() {
     }
 
     private fun onProductClick(product: Product) {
-        // TODO: 09.04.2021 impement this
+        Navigation.findNavController(requireActivity(), R.id.container)
+            .navigate(
+                R.id.show_product_details, bundleOf(
+                    ProductDetailsFragment.PRODUCT_ID to product.id
+                )
+            )
     }
 }

@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import pl.makrohard.alfacommerce.adapter.GalleryAdapter
 import pl.makrohard.alfacommerce.databinding.ProductDetailsFragmentBinding
+import pl.makrohard.alfacommerce.util.TextUtils
 
 class ProductDetailsFragment : Fragment() {
     companion object {
@@ -49,6 +50,7 @@ class ProductDetailsFragment : Fragment() {
             adapter.notifyDataSetChanged()
 
             viewBinding.name.text = it.name
+            viewBinding.price.text = TextUtils.formatPrice(it.price)
         }
     }
 }
