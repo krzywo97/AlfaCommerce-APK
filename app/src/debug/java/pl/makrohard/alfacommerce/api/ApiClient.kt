@@ -1,10 +1,7 @@
 package pl.makrohard.alfacommerce.api
 
-import okhttp3.Dns
-import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.net.InetAddress
 
 object ApiClient {
     private val client: Retrofit = Retrofit.Builder()
