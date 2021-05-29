@@ -28,6 +28,7 @@
         android:id="@+id/filters"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:insetTop="0dp"
         android:insetBottom="0dp"
         android:text="@string/filters"
         app:layout_constraintBottom_toBottomOf="parent"

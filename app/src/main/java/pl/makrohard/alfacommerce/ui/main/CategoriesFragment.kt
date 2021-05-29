@@ -11,10 +11,6 @@ import pl.makrohard.alfacommerce.adapter.CategoriesAdapter
 import pl.makrohard.alfacommerce.databinding.CategoriesFragmentBinding
 
 class CategoriesFragment : Fragment() {
-    companion object {
-        fun newInstance() = CategoriesFragment()
-    }
-
     private lateinit var viewBinding: CategoriesFragmentBinding
     private val viewModel: CategoriesViewModel by activityViewModels()
 

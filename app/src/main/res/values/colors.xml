@@ -3,4 +3,6 @@
     <color name="colorPrimary">#6200EE</color>
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
+    <color name="product_price_box_background">#f8f9fa</color>
+    <color name="icon_tint">#333</color>
 </resources>

@@ -1,8 +1,9 @@
 package pl.makrohard.alfacommerce.ui.main
 
 import android.os.Bundle
-import android.view.*
-import android.widget.Toast
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
@@ -11,6 +12,7 @@ import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.adapter.ProductsAdapter
 import pl.makrohard.alfacommerce.databinding.ProductsFragmentBinding
 import pl.makrohard.alfacommerce.model.Product
+import pl.makrohard.alfacommerce.ui.MainNavigator
 
 class ProductsFragment : Fragment() {
     companion object {
@@ -60,6 +62,6 @@ class ProductsFragment : Fragment() {
     }
 
     private fun onProductClick(product: Product) {
-        Toast.makeText(requireContext(), "Klik ${product.name}", Toast.LENGTH_SHORT).show()
+        MainNavigator.showProductDetails(product.id, requireActivity())
     }
 }
