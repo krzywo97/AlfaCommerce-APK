@@ -39,3 +39,6 @@ build
 *.ipr
 *~
 *.swp
+
+# Debug constants
+app/src/debug/java/pl/makrohard/alfacommerce/api/DebugConstants.kt
