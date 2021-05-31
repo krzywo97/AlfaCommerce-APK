@@ -41,4 +41,4 @@ build
 *.swp
 
 # Debug constants
-app/src/debug/java/pl/makrohard/alfacommerce/api/DebugConstants.kt
+app/src/debug/java/pl/makrohard/alfacommerce/application/Constants.kt

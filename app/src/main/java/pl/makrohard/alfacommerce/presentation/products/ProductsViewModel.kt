@@ -4,60 +4,57 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import pl.makrohard.alfacommerce.domain.repository.ProductsRepository
-import pl.makrohard.alfacommerce.domain.model.LoadingState
 import pl.makrohard.alfacommerce.data.dto.request.GetProductsRequestDto
-import pl.makrohard.alfacommerce.data.dto.response.GetProductsResponseDto
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import pl.makrohard.alfacommerce.domain.model.LoadingState
+import pl.makrohard.alfacommerce.domain.model.Product
+import pl.makrohard.alfacommerce.domain.repository.ProductsRepository
 
-class ProductsViewModel : ViewModel() {
+class ProductsViewModel(val repository: ProductsRepository) : ViewModel() {
     val filters = GetProductsRequestDto()
-    private val loadingState = MutableLiveData(LoadingState.INITIAL)
-    private val products = MutableLiveData<GetProductsResponseDto?>()
 
-    lateinit var productsRepository: ProductsRepository
+    private val loadingState = MutableLiveData(LoadingState.INITIAL)
+    private val products = MutableLiveData<List<Product>>(listOf())
+    private val totalPages = MutableLiveData(0)
+    private val totalProducts = MutableLiveData(0)
+
+    private val loadingExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        loadingState.value = LoadingState.FAILED(throwable.localizedMessage ?: "")
+    }
 
     init {
         fetchProducts(false)
     }
 
     fun fetchProducts(append: Boolean) {
-        viewModelScope.launch {
-            loadingState.value = LoadingState.LOADING
-            productsRepository.index(filters).enqueue(object : Callback<GetProductsResponseDto> {
-                override fun onResponse(
-                    call: Call<GetProductsResponseDto>,
-                    response: Response<GetProductsResponseDto>
-                ) {
-                    loadingState.value = LoadingState.SUCCESS
-                    if (append && products.value != null && response.body() != null) {
-                        val list =
-                            products.value!!.products + response.body()!!.products
+        loadingState.value = LoadingState.LOADING
 
-                        products.value = GetProductsResponseDto(
-                            list,
-                            response.body()!!.totalPages,
-                            response.body()!!.totalProducts
-                        )
-                    } else {
-                        products.value = response.body()
-                    }
-                }
+        viewModelScope.launch(Dispatchers.IO + loadingExceptionHandler) {
+            val response = repository.index(filters)
+            products.value = if (!append) {
+                response.products
+            } else {
+                products.value!! + response.products
+            }
 
-                override fun onFailure(call: Call<GetProductsResponseDto>, t: Throwable) {
-                    loadingState.value = LoadingState.FAILED(t.localizedMessage ?: "")
-                    if (!append) {
-                        products.value = null
-                    }
-                }
-            })
+            totalPages.value = response.totalPages
+            totalProducts.value = response.totalProducts
+
+            loadingState.value = LoadingState.SUCCESS
         }
     }
 
-    fun getProducts(): LiveData<GetProductsResponseDto?> {
+    fun getProducts(): LiveData<List<Product>> {
         return products
+    }
+
+    fun getTotalPages(): LiveData<Int> {
+        return totalPages
+    }
+
+    fun getTotalProducts(): LiveData<Int> {
+        return totalProducts
     }
 }

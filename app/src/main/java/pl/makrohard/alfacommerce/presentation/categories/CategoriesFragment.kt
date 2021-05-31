@@ -9,12 +9,14 @@ import androidx.fragment.app.activityViewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.android.ext.android.inject
 import pl.makrohard.alfacommerce.databinding.CategoriesFragmentBinding
+import pl.makrohard.alfacommerce.domain.repository.CategoriesRepository
 import pl.makrohard.alfacommerce.presentation.products.FiltersDialogFragment
 
 class CategoriesFragment : Fragment() {
     private lateinit var viewBinding: CategoriesFragmentBinding
-    private val viewModel by activityViewModels<CategoriesViewModel>()
-    private val adapter = inject<CategoriesAdapter>()
+    private val viewModel by activityViewModels<CategoriesViewModel> {
+        CategoriesViewModelFactory(inject<CategoriesRepository>().value)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

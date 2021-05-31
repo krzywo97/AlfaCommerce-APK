@@ -3,25 +3,27 @@ package pl.makrohard.alfacommerce.presentation.product
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import pl.makrohard.alfacommerce.data.repository.ProductsRepositoryImpl
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import pl.makrohard.alfacommerce.domain.model.LoadingState
 import pl.makrohard.alfacommerce.domain.model.Product
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import pl.makrohard.alfacommerce.domain.repository.ProductsRepository
 
-class ProductDetailsViewModel : ViewModel() {
+class ProductDetailsViewModel(val repository: ProductsRepository) : ViewModel() {
+    private val loadingState = MutableLiveData(LoadingState.INITIAL)
     private val product = MutableLiveData<Product>()
+    private val loadingExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        loadingState.value = LoadingState.FAILED(throwable.localizedMessage ?: "")
+    }
 
     fun fetchProductDetails(id: Int) {
-        ProductsRepositoryImpl.productsApi.details(id).enqueue(object : Callback<Product> {
-            override fun onResponse(call: Call<Product>, response: Response<Product>) {
-                product.value = response.body()
-            }
-
-            override fun onFailure(call: Call<Product>, t: Throwable) {
-                TODO("Not yet implemented")
-            }
-        })
+        loadingState.value = LoadingState.LOADING
+        viewModelScope.launch(Dispatchers.IO + loadingExceptionHandler) {
+            product.value = repository.details(id)
+            loadingState.value = LoadingState.SUCCESS
+        }
     }
 
     fun getProduct(): LiveData<Product> {

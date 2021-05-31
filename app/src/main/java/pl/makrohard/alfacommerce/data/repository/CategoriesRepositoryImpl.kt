@@ -1,6 +1,6 @@
 package pl.makrohard.alfacommerce.data.repository
 
-import pl.makrohard.alfacommerce.Constants
+import pl.makrohard.alfacommerce.application.Constants
 import pl.makrohard.alfacommerce.domain.model.Category
 import pl.makrohard.alfacommerce.domain.repository.CategoriesRepository
 import retrofit2.Retrofit

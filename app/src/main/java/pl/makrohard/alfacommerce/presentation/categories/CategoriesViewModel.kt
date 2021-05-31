@@ -1,42 +1,39 @@
 package pl.makrohard.alfacommerce.presentation.categories
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import pl.makrohard.alfacommerce.data.repository.ProductsRepositoryImpl
+import kotlinx.coroutines.withContext
 import pl.makrohard.alfacommerce.domain.model.Category
 import pl.makrohard.alfacommerce.domain.model.LoadingState
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import pl.makrohard.alfacommerce.domain.repository.CategoriesRepository
 
-class CategoriesViewModel : ViewModel() {
-
+class CategoriesViewModel(val repository: CategoriesRepository) : ViewModel() {
     private val loadingState = MutableLiveData(LoadingState.INITIAL)
     private val categories = MutableLiveData<List<Category>>()
+    private val loadingExceptionHandler = CoroutineExceptionHandler { _, throwable ->
+        Log.e(CategoriesViewModel::class.qualifiedName, "Failed to load data", throwable)
+        //loadingState.value = LoadingState.FAILED(throwable.localizedMessage ?: "")
+    }
 
     init {
         fetchCategories()
     }
 
     private fun fetchCategories() {
-        viewModelScope.launch {
-            loadingState.value = LoadingState.LOADING
-            ProductsRepositoryImpl.categoriesApi.index().enqueue(object : Callback<List<Category>> {
-                override fun onResponse(
-                    call: Call<List<Category>>,
-                    response: Response<List<Category>>
-                ) {
-                    categories.value = response.body()
-                    loadingState.value = LoadingState.SUCCESS
-                }
+        loadingState.value = LoadingState.LOADING
+        viewModelScope.launch(Dispatchers.IO + loadingExceptionHandler) {
+            val response = repository.index()
 
-                override fun onFailure(call: Call<List<Category>>, t: Throwable) {
-                    loadingState.value = LoadingState.FAILED(t.localizedMessage ?: "")
-                }
-            })
+            withContext(Dispatchers.Main) {
+                categories.value = response
+                loadingState.value = LoadingState.SUCCESS
+            }
         }
     }
 
