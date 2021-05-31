@@ -18,7 +18,7 @@ class CategoriesViewModel(val repository: CategoriesRepository) : ViewModel() {
     private val categories = MutableLiveData<List<Category>>()
     private val loadingExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.e(CategoriesViewModel::class.qualifiedName, "Failed to load data", throwable)
-        //loadingState.value = LoadingState.FAILED(throwable.localizedMessage ?: "")
+        loadingState.value = LoadingState.FAILED(throwable.localizedMessage ?: "")
     }
 
     init {
