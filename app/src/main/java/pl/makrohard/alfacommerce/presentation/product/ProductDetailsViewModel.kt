@@ -9,9 +9,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import pl.makrohard.alfacommerce.domain.model.LoadingState
 import pl.makrohard.alfacommerce.domain.model.Product
-import pl.makrohard.alfacommerce.domain.repository.ProductsRepository
+import pl.makrohard.alfacommerce.domain.usecase.GetProductDetailsUseCase
 
-class ProductDetailsViewModel(val repository: ProductsRepository) : ViewModel() {
+class ProductDetailsViewModel(private val getProductDetailsUseCase: GetProductDetailsUseCase) :
+    ViewModel() {
     private val loadingState = MutableLiveData(LoadingState.INITIAL)
     private val product = MutableLiveData<Product>()
     private val loadingExceptionHandler = CoroutineExceptionHandler { _, throwable ->
@@ -21,8 +22,10 @@ class ProductDetailsViewModel(val repository: ProductsRepository) : ViewModel() 
     fun fetchProductDetails(id: Int) {
         loadingState.value = LoadingState.LOADING
         viewModelScope.launch(Dispatchers.IO + loadingExceptionHandler) {
-            product.value = repository.details(id)
-            loadingState.value = LoadingState.SUCCESS
+            getProductDetailsUseCase.invoke(id).let { result ->
+                product.value = result.getOrNull()
+                loadingState.value = LoadingState.SUCCESS
+            }
         }
     }
 

@@ -1,4 +1,7 @@
 package pl.makrohard.alfacommerce.domain.usecase
 
-class GetCategoriesUseCase {
+import pl.makrohard.alfacommerce.domain.model.Category
+
+interface GetCategoriesUseCase {
+    suspend fun invoke(): List<Category>
 }

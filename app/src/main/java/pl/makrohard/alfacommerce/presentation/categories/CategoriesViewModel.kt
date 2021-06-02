@@ -11,14 +11,16 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import pl.makrohard.alfacommerce.domain.model.Category
 import pl.makrohard.alfacommerce.domain.model.LoadingState
-import pl.makrohard.alfacommerce.domain.repository.CategoriesRepository
+import pl.makrohard.alfacommerce.domain.usecase.GetCategoriesUseCase
 
-class CategoriesViewModel(val repository: CategoriesRepository) : ViewModel() {
+class CategoriesViewModel(private val getCategoriesUseCase: GetCategoriesUseCase) : ViewModel() {
     private val loadingState = MutableLiveData(LoadingState.INITIAL)
-    private val categories = MutableLiveData<List<Category>>()
+    private val categories = MutableLiveData<List<Category>?>()
     private val loadingExceptionHandler = CoroutineExceptionHandler { _, throwable ->
         Log.e(CategoriesViewModel::class.qualifiedName, "Failed to load data", throwable)
+
         loadingState.value = LoadingState.FAILED(throwable.localizedMessage ?: "")
+        categories.value = null
     }
 
     init {
@@ -28,16 +30,16 @@ class CategoriesViewModel(val repository: CategoriesRepository) : ViewModel() {
     private fun fetchCategories() {
         loadingState.value = LoadingState.LOADING
         viewModelScope.launch(Dispatchers.IO + loadingExceptionHandler) {
-            val response = repository.index()
-
-            withContext(Dispatchers.Main) {
-                categories.value = response
-                loadingState.value = LoadingState.SUCCESS
+            getCategoriesUseCase.invoke().let { response ->
+                withContext(Dispatchers.Main) {
+                    categories.value = response
+                    loadingState.value = LoadingState.SUCCESS
+                }
             }
         }
     }
 
-    fun getCategories(): LiveData<List<Category>> {
+    fun getCategories(): LiveData<List<Category>?> {
         return categories
     }
 }

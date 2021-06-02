@@ -9,8 +9,8 @@ import retrofit2.http.QueryMap
 
 interface ProductsRepository {
     @GET("products")
-    suspend fun index(@QueryMap filters: GetProductsRequestDto): GetProductsResponseDto
+    suspend fun index(@QueryMap filters: GetProductsRequestDto): Result<GetProductsResponseDto>
 
     @GET("products/{id}")
-    suspend fun details(@Path("id") id: Int): Product
+    suspend fun details(@Path("id") id: Int): Result<Product>
 }

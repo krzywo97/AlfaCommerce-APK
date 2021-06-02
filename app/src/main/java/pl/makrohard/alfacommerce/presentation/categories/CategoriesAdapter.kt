@@ -8,15 +8,15 @@ import pl.makrohard.alfacommerce.domain.model.Category
 import pl.makrohard.alfacommerce.presentation.products.ProductsFragment
 
 class CategoriesAdapter(
-    var categories: List<Category>,
+    var categories: List<Category>?,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
-        return categories.size
+        return categories?.size ?: 0
     }
 
     override fun createFragment(position: Int): Fragment {
-        return ProductsFragment.newInstance(categories[position].id)
+        return ProductsFragment.newInstance(categories!![position].id)
     }
 }

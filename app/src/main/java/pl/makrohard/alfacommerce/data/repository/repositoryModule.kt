@@ -7,17 +7,16 @@ import pl.makrohard.alfacommerce.domain.repository.ColorsRepository
 import pl.makrohard.alfacommerce.domain.repository.ProductsRepository
 
 val repositoryModule = module {
-
     //TODO: figure out how to lazy load those classes
     single<CategoriesRepository> {
-        CategoriesRepositoryImpl()
+        ApiCategoriesRepository()
     } bind CategoriesRepository::class
 
     single<ColorsRepository> {
-        ColorsRepositoryImpl()
+        ApiColorsRepository()
     } bind ColorsRepository::class
 
     single<ProductsRepository> {
-        ProductsRepositoryImpl()
+        ApiProductsRepository()
     } bind ProductsRepository::class
 }
