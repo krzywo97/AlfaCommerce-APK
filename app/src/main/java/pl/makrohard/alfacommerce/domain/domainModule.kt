@@ -3,10 +3,7 @@ package pl.makrohard.alfacommerce.domain
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import pl.makrohard.alfacommerce.domain.model.Filters
-import pl.makrohard.alfacommerce.domain.usecase.GetCategoriesUseCase
-import pl.makrohard.alfacommerce.domain.usecase.GetCategoriesUseCaseImpl
-import pl.makrohard.alfacommerce.domain.usecase.GetProductsUseCase
-import pl.makrohard.alfacommerce.domain.usecase.GetProductsUseCaseImpl
+import pl.makrohard.alfacommerce.domain.usecase.*
 
 val domainModule = module {
     single<GetCategoriesUseCase> {
@@ -16,6 +13,10 @@ val domainModule = module {
     single<GetProductsUseCase> {
         GetProductsUseCaseImpl(get())
     } bind GetProductsUseCase::class
+
+    single<GetProductDetailsUseCase> {
+        GetProductDetailsUseCaseImpl(get())
+    } bind GetProductDetailsUseCase::class
 
     factory {
         Filters()

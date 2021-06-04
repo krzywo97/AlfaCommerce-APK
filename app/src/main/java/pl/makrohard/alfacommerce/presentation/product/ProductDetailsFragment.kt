@@ -5,24 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import pl.makrohard.alfacommerce.databinding.ProductDetailsFragmentBinding
 import pl.makrohard.alfacommerce.util.TextUtils
 
 class ProductDetailsFragment : Fragment() {
     companion object {
-        const val PRODUCT_ID = "productId"
-
-        fun newInstance(productId: Int) = ProductDetailsFragment().apply {
-            arguments = Bundle().apply {
-                putInt(PRODUCT_ID, productId)
-            }
-        }
+        fun newInstance() = ProductDetailsFragment()
     }
 
     private lateinit var viewBinding: ProductDetailsFragmentBinding
-    private val viewModel: ProductDetailsViewModel by viewModels()
+    private val viewModel by sharedViewModel<ProductDetailsViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,9 +28,6 @@ class ProductDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val productId = arguments?.getInt(PRODUCT_ID)!!
-        viewModel.fetchProductDetails(productId)
 
         val adapter = GalleryAdapter(emptyList())
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

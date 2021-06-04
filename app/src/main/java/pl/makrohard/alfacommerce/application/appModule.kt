@@ -16,8 +16,8 @@ val appModule = module {
         ProductsFragment.newInstance(categoryId)
     }
 
-    fragment { (productId: Int) ->
-        ProductDetailsFragment.newInstance(productId)
+    fragment {
+        ProductDetailsFragment.newInstance()
     }
 
     fragment {
