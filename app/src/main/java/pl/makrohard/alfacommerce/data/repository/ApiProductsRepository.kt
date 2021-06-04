@@ -1,7 +1,6 @@
 package pl.makrohard.alfacommerce.data.repository
 
 import pl.makrohard.alfacommerce.application.Constants
-import pl.makrohard.alfacommerce.data.dto.request.GetProductsRequestDto
 import pl.makrohard.alfacommerce.data.dto.response.GetProductsResponseDto
 import pl.makrohard.alfacommerce.domain.model.Product
 import pl.makrohard.alfacommerce.domain.repository.ProductsRepository
@@ -15,11 +14,11 @@ class ApiProductsRepository : ProductsRepository {
         .build()
         .create(ProductsRepository::class.java)
 
-    override suspend fun index(filters: GetProductsRequestDto): Result<GetProductsResponseDto> {
+    override suspend fun index(filters: Map<String, Any>): GetProductsResponseDto {
         return repository.index(filters)
     }
 
-    override suspend fun details(id: Int): Result<Product> {
+    override suspend fun details(id: Int): Product {
         return repository.details(id)
     }
 }

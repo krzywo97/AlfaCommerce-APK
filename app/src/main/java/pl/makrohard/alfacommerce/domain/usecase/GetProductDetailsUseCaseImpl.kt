@@ -6,7 +6,7 @@ import pl.makrohard.alfacommerce.domain.repository.ProductsRepository
 class GetProductDetailsUseCaseImpl(private val repository: ProductsRepository) :
     GetProductDetailsUseCase {
 
-    override suspend fun invoke(id: Int): Result<Product> {
+    override suspend fun invoke(id: Int): Product {
         return repository.details(id)
     }
 }

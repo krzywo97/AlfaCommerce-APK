@@ -27,7 +27,11 @@ class CategoriesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewBinding.filters.setOnClickListener {
-            FiltersDialogFragment.newInstance().show(parentFragmentManager, "showFilters")
+            parentFragmentManager
+                .beginTransaction()
+                .add(FiltersDialogFragment::class.java, null, "showFilters")
+                .commit()
+            //FiltersDialogFragment.newInstance().show(parentFragmentManager, "showFilters")
         }
 
         val adapter = CategoriesAdapter(

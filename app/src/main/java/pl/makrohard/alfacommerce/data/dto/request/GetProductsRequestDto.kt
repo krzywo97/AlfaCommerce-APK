@@ -1,96 +1,29 @@
 package pl.makrohard.alfacommerce.data.dto.request
 
-class GetProductsRequestDto : HashMap<String, Any>() {
-    companion object {
-        private const val NAME = "name"
-        private const val CATEGORY = "category"
-        private const val COLOR = "color"
-        private const val MIN_PRICE = "minPrice"
-        private const val MAX_PRICE = "maxPrice"
-        private const val MIN_WEIGHT = "minWeight"
-        private const val MAX_WEIGHT = "maxWeight"
-        private const val PAGE = "page"
-        private const val PER_PAGE = "perPage"
+import pl.makrohard.alfacommerce.domain.model.Filters
+
+object GetProductsRequestDto {
+    private const val NAME = "name"
+    private const val CATEGORY = "category"
+    private const val COLOR = "color"
+    private const val MIN_PRICE = "minPrice"
+    private const val MAX_PRICE = "maxPrice"
+    private const val MIN_WEIGHT = "minWeight"
+    private const val MAX_WEIGHT = "maxWeight"
+    private const val PAGE = "page"
+    private const val PER_PAGE = "perPage"
+
+    fun fromFilters(filters: Filters): Map<String, Any> {
+        return HashMap<String, Any>().apply {
+            if (filters.name != null) put(NAME, filters.name!!)
+            if (filters.category != null) put(CATEGORY, filters.category!!)
+            if (filters.color != null) put(COLOR, filters.color!!)
+            if (filters.minPrice != null) put(MIN_PRICE, filters.minPrice!!)
+            if (filters.maxPrice != null) put(MAX_PRICE, filters.maxPrice!!)
+            if (filters.minWeight != null) put(MIN_WEIGHT, filters.minWeight!!)
+            if (filters.maxWeight != null) put(MAX_WEIGHT, filters.maxWeight!!)
+            if (filters.page != null) put(PAGE, filters.page!!)
+            if (filters.perPage != null) put(PER_PAGE, filters.perPage!!)
+        }
     }
-
-    var name: String? = null
-        set(value) {
-            if (value != null) {
-                put(NAME, value)
-            } else {
-                remove(NAME)
-            }
-        }
-
-    var category: Int? = null
-        set(value) {
-            if (value != null) {
-                put(CATEGORY, value)
-            } else {
-                remove(CATEGORY)
-            }
-        }
-
-    var color: Int? = null
-        set(value) {
-            if (value != null) {
-                put(COLOR, value)
-            } else {
-                remove(COLOR)
-            }
-        }
-
-    var minPrice: Float? = null
-        set(value) {
-            if (value != null) {
-                put(MIN_PRICE, value)
-            } else {
-                remove(MIN_PRICE)
-            }
-        }
-
-    var maxPrice: Float? = null
-        set(value) {
-            if (value != null) {
-                put(MAX_PRICE, value)
-            } else {
-                remove(MAX_PRICE)
-            }
-        }
-
-    var minWeight: Int? = null
-        set(value) {
-            if (value != null) {
-                put(MIN_WEIGHT, value)
-            } else {
-                remove(MIN_WEIGHT)
-            }
-        }
-
-    var maxWeight: Int? = null
-        set(value) {
-            if (value != null) {
-                put(MAX_WEIGHT, value)
-            } else {
-                remove(MAX_WEIGHT)
-            }
-        }
-
-    var page: Int? = null
-        set(value) {
-            if (value != null) {
-                put(PAGE, value)
-            } else {
-                remove(PAGE)
-            }
-        }
-
-    var perPage: Int? = null
-        set(value) {
-            if (value != null) {
-                put(PER_PAGE, value)
-            } else {
-                remove(PER_PAGE)
-            }
-        }
 }

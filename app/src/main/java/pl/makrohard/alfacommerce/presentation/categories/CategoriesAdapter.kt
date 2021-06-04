@@ -4,6 +4,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import org.koin.core.parameter.parametersOf
+import org.koin.java.KoinJavaComponent.get
 import pl.makrohard.alfacommerce.domain.model.Category
 import pl.makrohard.alfacommerce.presentation.products.ProductsFragment
 
@@ -17,6 +19,8 @@ class CategoriesAdapter(
     }
 
     override fun createFragment(position: Int): Fragment {
-        return ProductsFragment.newInstance(categories!![position].id)
+        return get(ProductsFragment::class.java) {
+            parametersOf(categories!![position].id)
+        }
     }
 }

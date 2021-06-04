@@ -11,7 +11,7 @@ import pl.makrohard.alfacommerce.domain.model.Product
 
 class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>() {
 
-    lateinit var products: List<Product>
+    var products: List<Product>? = null
     var onClickListener: ((product: Product) -> Unit)? = null
 
     inner class ProductViewHolder(
@@ -43,11 +43,11 @@ class ProductsAdapter : RecyclerView.Adapter<ProductsAdapter.ProductViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
-        val product = products[holder.adapterPosition]
+        val product = products!![holder.adapterPosition]
         holder.bind(product)
     }
 
     override fun getItemCount(): Int {
-        return products.size
+        return products?.size ?: 0
     }
 }
