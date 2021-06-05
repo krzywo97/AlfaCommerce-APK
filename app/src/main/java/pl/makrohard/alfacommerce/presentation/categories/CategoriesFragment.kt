@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import pl.makrohard.alfacommerce.databinding.CategoriesFragmentBinding
-import pl.makrohard.alfacommerce.presentation.products.FiltersDialogFragment
 
 class CategoriesFragment : Fragment() {
     private lateinit var viewBinding: CategoriesFragmentBinding
@@ -25,14 +24,6 @@ class CategoriesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewBinding.filters.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(FiltersDialogFragment::class.java, null, "showFilters")
-                .commit()
-            //FiltersDialogFragment.newInstance().show(parentFragmentManager, "showFilters")
-        }
 
         val adapter = CategoriesAdapter(
             viewModel.getCategories().value,

@@ -15,6 +15,7 @@ class ProductDetailsFragment : Fragment() {
         fun newInstance() = ProductDetailsFragment()
     }
 
+
     private lateinit var viewBinding: ProductDetailsFragmentBinding
     private val viewModel by sharedViewModel<ProductDetailsViewModel>()
 
