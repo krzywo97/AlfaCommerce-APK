@@ -10,10 +10,11 @@ import pl.makrohard.alfacommerce.domain.model.Category
 import pl.makrohard.alfacommerce.presentation.products.ProductsFragment
 
 class CategoriesAdapter(
-    var categories: List<Category>?,
     fragmentManager: FragmentManager,
     lifecycle: Lifecycle
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
+    var categories: List<Category>? = null
+
     override fun getItemCount(): Int {
         return categories?.size ?: 0
     }

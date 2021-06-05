@@ -9,8 +9,10 @@ import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.databinding.GalleryItemBinding
 import pl.makrohard.alfacommerce.domain.model.Photo
 
-class GalleryAdapter(var photos: List<Photo>) :
+class GalleryAdapter :
     RecyclerView.Adapter<GalleryAdapter.GalleryItemViewHolder>() {
+
+    var photos: List<Photo>? = null
 
     inner class GalleryItemViewHolder(private val viewBinding: GalleryItemBinding) :
         RecyclerView.ViewHolder(viewBinding.root) {
@@ -36,10 +38,10 @@ class GalleryAdapter(var photos: List<Photo>) :
     }
 
     override fun onBindViewHolder(holder: GalleryItemViewHolder, position: Int) {
-        holder.bind(photos[holder.adapterPosition])
+        holder.bind(photos!![holder.adapterPosition])
     }
 
     override fun getItemCount(): Int {
-        return photos.size
+        return photos?.size ?: 0
     }
 }
