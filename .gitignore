@@ -1,14 +1,47 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
+# Windows thumbnail db
+Thumbs.db
+
+# OSX files
 .DS_Store
-/build
-/captures
+
+# built application files
+*.apk
+*.ap_
 .externalNativeBuild
 .cxx
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+build/
+captures/
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# Android Studio
+.idea
+.gradle
+/*/local.properties
+/*/out
+/*/*/build
+build
+/*/*/production
+*.iml
+*.iws
+*.ipr
+*~
+*.swp
+
+# Debug constants
+app/src/debug/java/pl/makrohard/alfacommerce/application/Constants.kt
