@@ -32,10 +32,10 @@ class ProductsFragment : Fragment() {
     }
 
     private lateinit var viewBinding: ProductsFragmentBinding
-    private val viewModel by viewModel<ProductsViewModel> {
+    private val productsViewModel: ProductsViewModel by viewModel {
         parametersOf(Filters())
     }
-    private val productDetailsViewModel by sharedViewModel<ProductDetailsViewModel>()
+    private val productDetailsViewModel: ProductDetailsViewModel by sharedViewModel()
     private val adapter: ProductsAdapter by inject()
 
     override fun onCreateView(
@@ -44,8 +44,8 @@ class ProductsFragment : Fragment() {
     ): View {
         val category = arguments?.getInt(CATEGORY_ID) ?: -1
 
-        viewModel.filters.category = category
-        viewModel.fetchProducts(false)
+        productsViewModel.filters.category = category
+        productsViewModel.fetchProducts(false)
 
         viewBinding = ProductsFragmentBinding.inflate(inflater, container, false)
         return viewBinding.root
@@ -63,7 +63,7 @@ class ProductsFragment : Fragment() {
         viewBinding.recycler.adapter = adapter
         viewBinding.recycler.layoutManager = layoutManager
 
-        viewModel.getProducts().observe(viewLifecycleOwner, {
+        productsViewModel.getProducts().observe(viewLifecycleOwner, {
             adapter.products = it
             adapter.notifyDataSetChanged()
         })

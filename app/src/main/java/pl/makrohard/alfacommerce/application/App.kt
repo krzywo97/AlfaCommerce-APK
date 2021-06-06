@@ -20,7 +20,6 @@ class App : Application() {
             androidLogger()
             fragmentFactory()
             modules(
-                appModule,
                 repositoryModule,
                 presentationModule,
                 domainModule
