@@ -17,7 +17,7 @@ class ProductDetailsFragment : Fragment() {
     }
 
     private lateinit var viewBinding: ProductDetailsFragmentBinding
-    private val viewModel by sharedViewModel<ProductDetailsViewModel>()
+    private val productDetailsViewModel by sharedViewModel<ProductDetailsViewModel>()
     private val galleryAdapter: GalleryAdapter = get()
 
     override fun onCreateView(
@@ -36,7 +36,7 @@ class ProductDetailsFragment : Fragment() {
         viewBinding.gallery.adapter = galleryAdapter
         viewBinding.gallery.layoutManager = layoutManager
 
-        viewModel.getProduct().observe(viewLifecycleOwner) {
+        productDetailsViewModel.getProduct().observe(viewLifecycleOwner) {
             galleryAdapter.photos = it.photos
             galleryAdapter.notifyDataSetChanged()
 
