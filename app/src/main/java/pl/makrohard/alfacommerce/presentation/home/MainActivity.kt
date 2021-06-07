@@ -14,6 +14,7 @@ class MainActivity : AppCompatActivity() {
          And Koin Fragment Manager apparently can't preserve these passed in CategoriesAdapter's createFragment method */
         //TODO: read more about how Koin fragment factory works and find out how to fix this issue
         //setupKoinFragmentFactory()
+        setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
     }
