@@ -49,16 +49,22 @@ class SearchFragment : Fragment() {
 
         viewBinding.searchResultsRecycler.adapter = adapter
         viewBinding.searchResultsRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
-
-        CoroutineScope(Dispatchers.Main).async {
-            delay(150)
-            viewBinding.searchBox.requestFocus()
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
-        }
+        viewBinding.searchBox.postDelayed({
+            if (viewBinding.searchBox.isAttachedToWindow) {
+                viewBinding.searchBox.requestFocus()
+                imm.toggleSoftInput(
+                    InputMethodManager.SHOW_IMPLICIT,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                )
+            }
+        }, 150)
 
         viewBinding.searchBox.setOnFocusChangeListener { v, hasFocus ->
             if (!hasFocus) {
-                imm.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                imm.hideSoftInputFromWindow(
+                    viewBinding.root.windowToken,
+                    InputMethodManager.HIDE_IMPLICIT_ONLY
+                )
             }
         }
 
