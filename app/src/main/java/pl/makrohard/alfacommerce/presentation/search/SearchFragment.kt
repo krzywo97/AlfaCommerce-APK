@@ -16,6 +16,8 @@ import pl.makrohard.alfacommerce.databinding.SearchFragmentBinding
 import pl.makrohard.alfacommerce.domain.model.Filters
 import pl.makrohard.alfacommerce.presentation.home.TopNavigator
 import pl.makrohard.alfacommerce.presentation.products.ProductsAdapter
+import pl.makrohard.alfacommerce.util.hideKeyboard
+import pl.makrohard.alfacommerce.util.showKeyboard
 
 class SearchFragment : Fragment() {
 
@@ -51,20 +53,13 @@ class SearchFragment : Fragment() {
         viewBinding.searchResultsRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
         viewBinding.searchBox.postDelayed({
             if (viewBinding.searchBox.isAttachedToWindow) {
-                viewBinding.searchBox.requestFocus()
-                imm.toggleSoftInput(
-                    InputMethodManager.SHOW_IMPLICIT,
-                    InputMethodManager.HIDE_IMPLICIT_ONLY
-                )
+                viewBinding.searchBox.showKeyboard(imm)
             }
         }, 150)
 
-        viewBinding.searchBox.setOnFocusChangeListener { v, hasFocus ->
+        viewBinding.searchBox.setOnFocusChangeListener { _, hasFocus ->
             if (!hasFocus) {
-                imm.hideSoftInputFromWindow(
-                    viewBinding.root.windowToken,
-                    InputMethodManager.HIDE_IMPLICIT_ONLY
-                )
+                viewBinding.searchBox.hideKeyboard(imm)
             }
         }
 
@@ -72,7 +67,7 @@ class SearchFragment : Fragment() {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 filters.name = v.text.toString()
                 searchViewModel.search(filters)
-                imm.hideSoftInputFromWindow(v.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+                viewBinding.searchBox.hideKeyboard(imm)
 
                 return@setOnEditorActionListener true
             }
