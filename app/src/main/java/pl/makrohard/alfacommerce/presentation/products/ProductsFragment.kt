@@ -13,9 +13,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.databinding.ProductsFragmentBinding
+import pl.makrohard.alfacommerce.domain.model.Category
 import pl.makrohard.alfacommerce.domain.model.Filters
 import pl.makrohard.alfacommerce.domain.model.Product
-import pl.makrohard.alfacommerce.presentation.home.MainNavigator
+import pl.makrohard.alfacommerce.presentation.home.TopNavigator
 import pl.makrohard.alfacommerce.presentation.product.ProductDetailsViewModel
 
 class ProductsFragment : Fragment() {
@@ -44,7 +45,8 @@ class ProductsFragment : Fragment() {
     ): View {
         val category = arguments?.getInt(CATEGORY_ID) ?: -1
 
-        productsViewModel.filters.category = category
+        //TODO: Don't create new Category object, get it from the CategoriesViewModel instead
+        productsViewModel.filters.category = listOf(Category(category, ""))
         productsViewModel.fetchProducts(false)
 
         viewBinding = ProductsFragmentBinding.inflate(inflater, container, false)
@@ -77,6 +79,6 @@ class ProductsFragment : Fragment() {
 
     private fun onProductClick(product: Product) {
         productDetailsViewModel.fetchProductDetails(product.id)
-        MainNavigator.showProductDetails(requireActivity())
+        TopNavigator.showProductDetails(requireActivity())
     }
 }

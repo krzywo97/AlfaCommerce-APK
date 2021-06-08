@@ -19,4 +19,8 @@
     <string name="product_info">Product information</string>
     <string name="product_details_color_label">Color</string>
     <string name="product_details_weight_label">Weight [g]</string>
+    <string name="bottom_navigation_explore_products">Explore</string>
+    <string name="bottom_navigation_search">Search</string>
+    <string name="bottom_navigation_profile">My profile</string>
+    <string name="search_box_hint">What are you looking for?</string>
 </resources>

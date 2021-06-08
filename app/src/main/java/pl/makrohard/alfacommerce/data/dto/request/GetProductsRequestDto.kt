@@ -16,8 +16,10 @@ object GetProductsRequestDto {
     fun fromFilters(filters: Filters): Map<String, Any> {
         return HashMap<String, Any>().apply {
             if (filters.name != null) put(NAME, filters.name!!)
-            if (filters.category != null) put(CATEGORY, filters.category!!)
-            if (filters.color != null) put(COLOR, filters.color!!)
+
+            //TODO: change the behavior to send the whole list instead of first element only when the API is ready
+            if (filters.category?.isNotEmpty() == true) put(CATEGORY, filters.category!![0].id)
+            if (filters.color?.isNotEmpty() == true) put(COLOR, filters.color!![0].id)
             if (filters.minPrice != null) put(MIN_PRICE, filters.minPrice!!)
             if (filters.maxPrice != null) put(MAX_PRICE, filters.maxPrice!!)
             if (filters.minWeight != null) put(MIN_WEIGHT, filters.minWeight!!)

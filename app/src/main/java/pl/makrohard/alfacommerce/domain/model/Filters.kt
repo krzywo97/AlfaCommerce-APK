@@ -2,8 +2,8 @@ package pl.makrohard.alfacommerce.domain.model
 
 data class Filters(
     var name: String? = null,
-    var category: Int? = null,
-    var color: Int? = null,
+    var category: List<Category>? = null,
+    var color: List<Color>? = null,
     var minPrice: Float? = null,
     var maxPrice: Float? = null,
     var minWeight: Int? = null,

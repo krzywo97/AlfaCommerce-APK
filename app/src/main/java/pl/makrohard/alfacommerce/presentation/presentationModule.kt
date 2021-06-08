@@ -9,6 +9,8 @@ import pl.makrohard.alfacommerce.domain.model.Filters
 import pl.makrohard.alfacommerce.presentation.categories.CategoriesAdapter
 import pl.makrohard.alfacommerce.presentation.categories.CategoriesFragment
 import pl.makrohard.alfacommerce.presentation.categories.CategoriesViewModel
+import pl.makrohard.alfacommerce.presentation.home.BottomNavigationFragment
+import pl.makrohard.alfacommerce.presentation.home.BottomNavigationViewModel
 import pl.makrohard.alfacommerce.presentation.product.GalleryAdapter
 import pl.makrohard.alfacommerce.presentation.product.ProductDetailsFragment
 import pl.makrohard.alfacommerce.presentation.product.ProductDetailsViewModel
@@ -18,6 +20,10 @@ import pl.makrohard.alfacommerce.presentation.products.ProductsFragment
 import pl.makrohard.alfacommerce.presentation.products.ProductsViewModel
 
 val presentationModule = module {
+    fragment {
+        BottomNavigationFragment.newInstance()
+    }
+
     fragment {
         CategoriesFragment()
     }
@@ -32,6 +38,10 @@ val presentationModule = module {
 
     fragment {
         FiltersDialogFragment.newInstance()
+    }
+
+    viewModel {
+        BottomNavigationViewModel()
     }
 
     viewModel {

@@ -20,7 +20,6 @@ class CategoriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
         viewBinding = CategoriesFragmentBinding.inflate(inflater, container, false)
         return viewBinding.root
     }

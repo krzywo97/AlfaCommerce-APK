@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_navigation_explore"
+        android:icon="@drawable/basket"
+        android:title="@string/bottom_navigation_explore_products" />
+    <item
+        android:id="@+id/bottom_navigation_search"
+        android:icon="@drawable/search"
+        android:title="@string/bottom_navigation_search" />
+</menu>

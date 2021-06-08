@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/top_nav_graph"
+    app:startDestination="@id/bottomNavigationFragment">
+    <fragment
+        android:id="@+id/bottomNavigationFragment"
+        android:name="pl.makrohard.alfacommerce.presentation.home.BottomNavigationFragment"
+        android:label="bottom_navigation_fragment"
+        tools:layout="@layout/bottom_navigation_fragment" />
+</navigation>
