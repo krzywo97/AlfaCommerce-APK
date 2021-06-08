@@ -1,11 +1,10 @@
 package pl.makrohard.alfacommerce.presentation.search
 
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.android.ext.android.inject
@@ -38,12 +37,12 @@ class SearchFragment : Fragment() {
         viewBinding.searchResultsRecycler.adapter = adapter
         viewBinding.searchResultsRecycler.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        viewBinding.searchBox.setOnKeyListener { v, keyCode, event ->
-            if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                searchViewModel.search(Filters((v as EditText).text.toString()))
-                return@setOnKeyListener true
+        viewBinding.searchBox.setOnEditorActionListener { v, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                searchViewModel.search(Filters(v.text.toString()))
+                return@setOnEditorActionListener true
             }
-            return@setOnKeyListener false
+            return@setOnEditorActionListener false
         }
 
         searchViewModel.getLoadingState().observe(viewLifecycleOwner) {
