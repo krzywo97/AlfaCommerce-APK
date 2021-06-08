@@ -5,7 +5,6 @@ import androidx.lifecycle.Lifecycle
 import org.koin.androidx.fragment.dsl.fragment
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
-import pl.makrohard.alfacommerce.domain.model.Filters
 import pl.makrohard.alfacommerce.presentation.categories.CategoriesAdapter
 import pl.makrohard.alfacommerce.presentation.categories.CategoriesFragment
 import pl.makrohard.alfacommerce.presentation.categories.CategoriesViewModel
@@ -18,6 +17,8 @@ import pl.makrohard.alfacommerce.presentation.products.FiltersDialogFragment
 import pl.makrohard.alfacommerce.presentation.products.ProductsAdapter
 import pl.makrohard.alfacommerce.presentation.products.ProductsFragment
 import pl.makrohard.alfacommerce.presentation.products.ProductsViewModel
+import pl.makrohard.alfacommerce.presentation.search.SearchFragment
+import pl.makrohard.alfacommerce.presentation.search.SearchViewModel
 
 val presentationModule = module {
     fragment {
@@ -26,6 +27,10 @@ val presentationModule = module {
 
     fragment {
         CategoriesFragment()
+    }
+
+    fragment {
+        SearchFragment.newInstance()
     }
 
     fragment { (categoryId: Int) ->
@@ -48,8 +53,12 @@ val presentationModule = module {
         CategoriesViewModel(get())
     }
 
-    viewModel { (filters: Filters) ->
-        ProductsViewModel(get(), filters)
+    viewModel {
+        SearchViewModel(get())
+    }
+
+    viewModel {
+        ProductsViewModel(get(), get())
     }
 
     viewModel {

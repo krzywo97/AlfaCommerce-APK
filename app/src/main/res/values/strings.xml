@@ -23,4 +23,5 @@
     <string name="bottom_navigation_search">Search</string>
     <string name="bottom_navigation_profile">My profile</string>
     <string name="search_box_hint">What are you looking for?</string>
+    <string name="search_filters_summary_empty">No filters — Nothing found</string>
 </resources>

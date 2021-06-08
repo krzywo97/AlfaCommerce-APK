@@ -10,11 +10,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.core.parameter.parametersOf
 import pl.makrohard.alfacommerce.R
 import pl.makrohard.alfacommerce.databinding.ProductsFragmentBinding
 import pl.makrohard.alfacommerce.domain.model.Category
-import pl.makrohard.alfacommerce.domain.model.Filters
 import pl.makrohard.alfacommerce.domain.model.Product
 import pl.makrohard.alfacommerce.presentation.home.TopNavigator
 import pl.makrohard.alfacommerce.presentation.product.ProductDetailsViewModel
@@ -33,9 +31,7 @@ class ProductsFragment : Fragment() {
     }
 
     private lateinit var viewBinding: ProductsFragmentBinding
-    private val productsViewModel: ProductsViewModel by viewModel {
-        parametersOf(Filters())
-    }
+    private val productsViewModel: ProductsViewModel by viewModel()
     private val productDetailsViewModel: ProductDetailsViewModel by sharedViewModel()
     private val adapter: ProductsAdapter by inject()
 
