@@ -35,6 +35,8 @@ class ProductsFragment : Fragment() {
     private val productDetailsViewModel: ProductDetailsViewModel by sharedViewModel()
     private val adapter: ProductsAdapter by inject()
 
+    private var topNavigator: TopNavigator? = null
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,6 +54,10 @@ class ProductsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val activity = requireActivity()
+        if (activity is TopNavigator) {
+            topNavigator = activity
+        }
         adapter.onClickListener = this::onProductClick
 
         val layoutManager = StaggeredGridLayoutManager(
@@ -70,11 +76,12 @@ class ProductsFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
 
+        topNavigator = null
         adapter.onClickListener = null
     }
 
     private fun onProductClick(product: Product) {
         productDetailsViewModel.fetchProductDetails(product.id)
-        TopNavigator.showProductDetails(requireActivity())
+        topNavigator?.showProductDetails(product.id)
     }
 }
